@@ -59,8 +59,27 @@ private:
 
 	float LastColorChangeTime;
 
+	// Helper functions and variables to test socket communication
 	FSocket* Socket;
 
-	bool connected;
+	bool ConnectSocket();
+
+	bool connected = false;
+
+	void SendToSocket();
+
+	uint32 message_size = 0;
+
+	uint32& r_message_size = message_size;
+
+	bool ReceiveFromSocket();
+
+	FString StringFromBinaryArray(TArray<uint8>);
+
+	void CloseServerAndSocket();
+
+	bool SendStringOverSocket(FString);
+
+	bool SocketIOSuccess = false;
 		
 };

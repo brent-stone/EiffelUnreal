@@ -132,13 +132,13 @@ feature {NONE} -- Implementation
 		do
 				-- Limit client message size to 10
 				-- It's here just to demonstrate the usage of the `read_line_until' routine
-			client_socket.read_line_until (10)
+			client_socket.read_line_until (30)
 			message := client_socket.last_string
 			if message /= Void then
 				if message.ends_with ("%R") then
 					message.keep_head (message.count-1)
 				end
-				io.put_string ("Client Says :")
+				io.put_string ("Client Says : ")
 				io.put_string (message)
 				io.put_new_line
 				if message.is_case_insensitive_equal ("quit") then
@@ -156,7 +156,7 @@ feature {NONE} -- Implementation
 			socket_valid: client_socket.is_open_write
 			message_attached: message /= Void
 		do
-			client_socket.put_string (message + "%N")
+			client_socket.put_string ("Hello from Eiffel! I heard you say: " + message + "%N")
 		end
 
 end
