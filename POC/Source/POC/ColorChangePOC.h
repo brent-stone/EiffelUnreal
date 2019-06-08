@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Sockets.h"					// For using sockets
 #include "Engine/World.h"				// Recent UE4 versions are include what you use
 #include "GameFramework/Actor.h"		// Recent UE4 versions are include what you use
 #include "ColorChangePOC.generated.h"	// NOTE! *.generated.h must be the last #include
@@ -57,5 +58,9 @@ private:
 	float ColorChangeDelay = 6.0f;
 
 	float LastColorChangeTime;
+
+	FSocket* Socket;
+
+	bool connected;
 		
 };

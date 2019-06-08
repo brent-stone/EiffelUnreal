@@ -3,6 +3,11 @@
 
 #include "ColorChangePOC.h"
 #include "GameFramework/Actor.h"
+#include "Sockets.h"
+#include "SocketSubsystem.h"
+#include "IPAddress.h"
+#include "Runtime/Core/Public/Templates/SharedPointer.h"
+
 
 // Sets default values for this component's properties
 UColorChangePOC::UColorChangePOC()
@@ -23,6 +28,24 @@ void UColorChangePOC::BeginPlay()
 	FString ObjectPos = Owner->GetTransform().GetLocation().ToString();
 	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectPos);
 	// ...
+	// Lets create our socket. Some adjustments were needed from this tutorial.
+	// https://wiki.unrealengine.com/Third_Party_Socket_Server_Connection
+	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
+
+	TSharedRef<FInternetAddr> addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+	addr->SetLoopbackAddress();
+	addr->SetPort(12111);
+
+	connected = Socket->Connect(*addr);
+	if (connected)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Successfuly connected socket!"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Did not connect socket."));
+	}
+
 	
 }
 

@@ -7,8 +7,12 @@ public class POC : ModuleRules
 	public POC(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+
+        // Added to make use of sockets
+        // PrivateIncludePaths.Add("Runtime/Networking/Private");
+
+        // Added "Sockets" to this array to make use of sockets
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Sockets"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
